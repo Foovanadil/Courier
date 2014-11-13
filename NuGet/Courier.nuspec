@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Courier</id>
+    <version>3.0.0</version>
+    <authors>Brad Cunningham</authors>
+    <owners>Brad Cunningham</owners>
+    <licenseUrl>https://github.com/Foovanadil/Courier/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Foovanadil/Courier//</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>A simple framework for sending messages between objects. Useful in highly decoupled systems where traditional .NET event patterns are undesirable.
+    Support for PCL (including Xamarin iOS and Xamarin Android), WPF, Silverlight, and WP7, WP8 Windows 8. Optional add on DLL provides Reactive Exentions (Rx) supports.</description>
+    <releaseNotes>Added full PCL support</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>Xamarin PCL WPF SL WP7 WP8 Rx PubSub</tags>
+  </metadata>
+</package>

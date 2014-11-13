@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Courier-vs8", "Courier\Courier-vs8.csproj", "{FF7FBF3F-D01C-4B93-A701-5903C2DE778B}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs02.codeplex.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Courier\\Courier-vs8.csproj
+		SccProjectName1 = Courier
+		SccLocalPath1 = Courier
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF7FBF3F-D01C-4B93-A701-5903C2DE778B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF7FBF3F-D01C-4B93-A701-5903C2DE778B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF7FBF3F-D01C-4B93-A701-5903C2DE778B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF7FBF3F-D01C-4B93-A701-5903C2DE778B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

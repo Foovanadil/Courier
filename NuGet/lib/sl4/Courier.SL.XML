@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Courier.SL</name>
+    </assembly>
+    <members>
+        <member name="T:Courier.CacheSettings">
+            <summary>
+            Class for managing cache settings for a specific message
+            </summary>
+        </member>
+        <member name="M:Courier.CacheSettings.#ctor(System.DateTime)">
+            <summary>
+            Create an instance of the cache settings class specifying the expiration date
+            </summary>
+            <param name="expiration">A timestamp of when this message should be expunged from cache</param>
+        </member>
+        <member name="M:Courier.CacheSettings.#ctor(System.Int32)">
+            <summary>
+            Create and instance of the cache settings class specifying the number of times to rebroadcast this message before it is expunged from the cache
+            </summary>
+            <param name="timesToResend">The number of times this message should be broadcast from cache before being expunged</param>
+        </member>
+        <member name="M:Courier.CacheSettings.#ctor">
+            <summary>
+            ONLY use this overload if you want a message to stay in cache indefinitely. If you do this
+            you must make sure to explicitly remove the message from cache
+            </summary>
+        </member>
+        <member name="P:Courier.CacheSettings.ExpirationDate">
+            <summary>
+            A timestamp of when this message should be expunged from cache
+            </summary>
+        </member>
+        <member name="P:Courier.CacheSettings.NumberOfResends">
+            <summary>
+            The number of times this message should be broadcast from cache before being expunged
+            </summary>
+        </member>
+        <member name="T:Courier.Mediator">
+            <summary>
+            The base mediator class that handles subscriptions, message dispatching and message caching
+            </summary>
+        </member>
+        <member name="M:Courier.Mediator.RegisterForMessage``1(System.Action{``0})">
+            <summary>
+            Register for the message by Type T. No name is given so one will be generated internally
+            </summary>
+            <param name="callback">The delegate to invoke when the specified message is raised</param>
+            <returns>a MessageToken to be used to unregister for the message and to verify subscription</returns>
+        </member>
+        <member name="M:Courier.Mediator.RegisterForMessage``1(System.Action{``0},System.Action{System.Exception})">
+            <summary>
+            Register for the message by Type T. No name is given so one will be generated internally
+            </summary>
+            <param name="callback">The delegate to invoke when the specified message is raised</param>
+            <param name="onError">The delegate to invoke when an error has occured on message dispatch</param>
+            <returns>a MessageToken to be used to unregister for the message and to verify subscription</returns>
+        </member>
+        <member name="M:Courier.Mediator.RegisterForMessage``1(System.String,System.Action{``0})">
+            <summary>
+            Register for the specified message. When the specified message is broadcast the subscribers delegate
+            will be invoked
+            </summary>
+            <param name="message">The message to subscribe to</param>
+            <param name="callback">The delegate to invoke when the specified message is raised</param>
+            <returns>a MessageToken to be used to unregister for the message and to verify subscription</returns>
+        </member>
+        <member name="M:Courier.Mediator.RegisterForMessage``1(System.String,System.Action{``0},System.Action{System.Exception})">
+            <summary>
+            Register for the specified message. When the specified message is broadcast the subscribers delegate
+            will be invoked
+            </summary>
+            <param name="message">The message to subscribe to</param>
+            <param name="callback">The delegate to invoke when the specified message is raised</param>
+            <param name="onError">The delegate to invoke when an error has occured on message dispatch</param>
+            <returns>a MessageToken to be used to unregister for the message and to verify subscription</returns>
+        </member>
+        <member name="M:Courier.Mediator.RegisterForMessage``1(System.String,System.Action{``0},System.Boolean)">
+            <summary>
+            Register for the specified message. When the specified message is broadcast the subscribers delegate
+            will be invoked
+            </summary>
+            <param name="message">The message to subscribe to</param>
+            <param name="callback">The delegate to invoke when the specified message is raised</param>
+            <param name="excludeCachedMessages">Opt out of receiving cached messages</param>
+            <returns>a MessageToken to be used to unregister for the message and to verify subscription</returns>
+        </member>
+        <member name="M:Courier.Mediator.RegisterForMessage``1(System.String,System.Action{``0},System.Action{System.Exception},System.Boolean)">
+            <summary>
+            Register for the specified message. When the specified message is broadcast the subscribers delegate
+            will be invoked
+            </summary>
+            <param name="message">The message to subscribe to</param>
+            <param name="callback">The delegate to invoke when the specified message is raised</param>
+            <param name="onError">The delegate to invoke when an error has occured on message dispatch</param>
+            <param name="excludeCachedMessages">Opt out of receiving cached messages</param>
+            <returns>a MessageToken to be used to unregister for the message and to verify subscription</returns>
+        </member>
+        <member name="M:Courier.Mediator.RegisterForMessage(System.String,System.Action)">
+            <summary>
+            Register for a message only by name.
+            </summary>
+            <param name="message">the message name</param>
+            <param name="callback">the handler to raise when the message is broadcast</param>
+            <returns></returns>
+        </member>
+        <member name="M:Courier.Mediator.RegisterForMessage(System.String,System.Action,System.Action{System.Exception})">
+            <summary>
+            Register for a message only by name.
+            </summary>
+            <param name="message">the message name</param>
+            <param name="callback">the handler to raise when the message is broadcast</param>
+            <param name="onError">The delegate to invoke when an error has occured on message dispatch</param>
+            <returns></returns>
+        </member>
+        <member name="M:Courier.Mediator.UnRegisterForMessage(Courier.MessageToken)">
+            <summary>
+            Remove the subscription from the mediator to prevent any future messages from being dispatched to the 
+            specified tokens endpoint 
+            </summary>
+            <param name="token">The token that identifies the subscriber to remove</param>
+        </member>
+        <member name="M:Courier.Mediator.IsSubscribed(Courier.MessageToken)">
+            <summary>
+            Look to see if the specified token is listed as a subscriber
+            </summary>
+            <param name="messageToken">The token to check</param>
+        </member>
+        <member name="M:Courier.Mediator.IsCached(System.String)">
+            <summary>
+            Given a message will tell you if there is a message that matches in the cache
+            </summary>
+            <param name="message">The message to look for in the cache</param>
+            <returns>True if there is one ion cache that matches, otherwise false</returns>
+        </member>
+        <member name="M:Courier.Mediator.RemoveFromCache(Courier.MessageToken)">
+            <summary>
+            Given a message token the mediator will remove the specified message from cache regardless of 
+            what the cache settings are. Use this method when you are caching a message idefintley or if 
+            you want preempt the normal cache expiration pipline
+            </summary>
+            <param name="token">The message token returned from the BroadcastMessage method call</param>
+            <returns>True if the removal suceeded False if the removal failed (i.e. the message is still in cache)</returns>
+        </member>
+        <member name="M:Courier.Mediator.BroadcastMessage``1(``0)">
+            <summary>
+            Given a parameter the mediator will broadcast this message to all subscribers that are registered
+            </summary>
+            <typeparam name="T">The type of the parameter (payload) being passed</typeparam>
+            <param name="parameter">the payload of the message</param>
+        </member>
+        <member name="M:Courier.Mediator.BroadcastMessage``1(System.String,``0)">
+            <summary>
+            Given a message key, and a parameter the mediator will broadcast this message to all subscribers that are registered
+            </summary>
+            <typeparam name="T">The type of the parameter (payload) being passed</typeparam>
+            <param name="message">The name of the message</param>
+            <param name="parameter">the payload of the message</param>
+        </member>
+        <member name="M:Courier.Mediator.BroadcastMessage(System.String,Courier.CacheSettings)">
+            <summary>
+            Given a message key, and cache settings the mediator will broadcast this message
+            to all subscribers that are registered
+            </summary>
+            <param name="message">The name of the message</param>
+            <param name="cacheOptions">The cache settings for this message</param>
+            <returns>A message token for the cached message. This token can be used to explicitly remove the message from cache</returns>
+        </member>
+        <member name="M:Courier.Mediator.BroadcastMessage``1(System.String,``0,Courier.CacheSettings)">
+            <summary>
+            Given a message key, a parameter, and cache settings the mediator will broadcast this message
+            to all subscribers that are registered
+            </summary>
+            <typeparam name="T">The type of the parameter (payload) being passed</typeparam>
+            <param name="message">The name of the message</param>
+            <param name="parameter">the payload of the message</param>
+            <param name="cacheOptions">The cache settings for this message</param>
+            <returns>A message token for the cached message. This token can be used to explicitly remove the message from cache</returns>
+        </member>
+        <member name="M:Courier.Mediator.BroadcastMessage(System.String)">
+            <summary>
+            Broadcast a message by name with no callback to invoke. This can be used a simple "ping" type notification where you don't care about a payload
+            just that the message has been fired.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Courier.Mediator.Dispose">
+            <summary>
+            Dispose of the Mediator
+            </summary>
+        </member>
+        <member name="M:Courier.Mediator.Finalize">
+            <summary>
+            Explicit Mediator deconstructor
+            </summary>
+        </member>
+        <member name="M:Courier.Mediator.Dispose(System.Boolean)">
+            <summary>
+            Dispose of the mediator. Flush the cach and dispose all the subscribers
+            </summary>
+            <param name="disposing">True is the object is in the process of being disposed via a call to the Dispose method</param>
+        </member>
+        <member name="T:Courier.MessageToken">
+            <summary>
+            A token returned when registering for a message. Hang on to this token if you want to explictly unsubscribe to from the message in the future
+            </summary>
+        </member>
+        <member name="M:Courier.MessageToken.Equals(System.Object)">
+            <summary>
+            Equality comparasion for message tokens. Matches on Message.Id only
+            </summary>
+            <param name="obj">The MessageToken instance to compare to</param>
+            <returns>true if equal; otherwise false</returns>
+        </member>
+        <member name="M:Courier.MessageToken.GetHashCode">
+            <summary>
+            Get the hash code for this MessageToken
+            </summary>
+            <returns>The hash code for this tokens Id property</returns>
+        </member>
+        <member name="P:Courier.MessageToken.Message">
+            <summary>
+            The message name / key
+            </summary>
+        </member>
+        <member name="P:Courier.MessageToken.Id">
+            <summary>
+            A unique ID generated for this subscription
+            </summary>
+        </member>
+        <member name="P:Courier.MessageToken.TimeAcquired">
+            <summary>
+            When this token was created
+            </summary>
+        </member>
+    </members>
+</doc>

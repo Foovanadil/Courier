@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="Courier.Example.SL.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             
+        mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:ViewModels="clr-namespace:Courier.SL.ViewModels;assembly=Courier.SL.ViewModels">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".25*" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height=".25*" />
+        </Grid.RowDefinitions>
+
+        <Border BorderBrush="Black"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="10"
+                Grid.Row="0">
+            <Border.DataContext>
+                <ViewModels:HeaderVM />
+            </Border.DataContext>
+            <TextBlock Text="{Binding MessageContent}" />
+        </Border>
+
+        <Border BorderBrush="Blue"
+                BorderThickness="1"
+                Padding="10"
+                Grid.Row="1">
+            <Border.DataContext>
+                <ViewModels:ContentPage1VM />
+            </Border.DataContext>
+            <StackPanel>
+                <TextBlock Text="Type a message to broadcast"
+                           Margin="0,0,0,15" />
+                <TextBox x:Name="messageTextBox"
+                         Margin="0,0,0,25" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Broadcast"
+                            Command="{Binding BroadcastMessage}"
+                            CommandParameter="{Binding ElementName=messageTextBox, Path=Text}"
+                            Height="25"
+                            Width="Auto"
+                            Margin="0,0,50,0" />
+
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="2">
+            <StackPanel.DataContext>
+                <ViewModels:ThreadedMessageVM />
+            </StackPanel.DataContext>
+            <ScrollViewer Height="150">
+                <ItemsControl ItemsSource="{Binding ThreadedMessageResults}" />
+            </ScrollViewer>
+            <Button Content="Threaded Message Scenario" Command="{Binding ThreadMessages}" />
+        </StackPanel>
+        
+        <Border BorderBrush="Red"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="10"
+                Grid.Row="3">
+            <Border.DataContext>
+                <ViewModels:FooterVM />
+            </Border.DataContext>
+			<StackPanel>
+				<TextBlock Text="{Binding MessageContent}" />
+				<TextBlock Text="{Binding ErrorContent}" Foreground="Red"  />
+			</StackPanel>
+		</Border>
+
+    </Grid>
+</UserControl>

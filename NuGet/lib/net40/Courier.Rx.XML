@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Courier.Rx</name>
+    </assembly>
+    <members>
+        <member name="T:Courier.Rx.MessageBroker">
+            <summary>
+            A shim for hooking up to Rx. This classe handles converting traditional messages into an IObservable sequence.
+            </summary>
+        </member>
+        <member name="M:Courier.Rx.MessageBroker.RegisterForMessage``1(Courier.Mediator,System.String)">
+            <summary>
+            Regsiter for an IObservable sequence of messages from the mediator
+            </summary>
+            <typeparam name="T">The Type of payload you expect back</typeparam>
+            <param name="messenger">The mediator</param>
+            <param name="message">The message key to subscribe to</param>
+            <returns>And IObservable sequence of messages for the given key / T combination</returns>
+        </member>
+    </members>
+</doc>
